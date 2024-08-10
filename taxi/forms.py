@@ -14,11 +14,10 @@ class DriverLicenseUpdateForm(forms.ModelForm):
     @staticmethod
     def validate_license_number(license_number):
         if (
-                license_number
+            license_number
             and len(license_number) == 8
             and license_number[:3].isalpha()
-            and (license_number[:3].isupper()
-            and license_number[3:].isdigit())
+            and (license_number[:3].isupper() and license_number[3:].isdigit())
         ):
             return True
         else:
@@ -29,9 +28,7 @@ class DriverLicenseUpdateForm(forms.ModelForm):
         if self.validate_license_number(license_number):
             return license_number
         else:
-            raise ValidationError(
-                "This license is wrong"
-            )
+            raise ValidationError("This license is wrong")
 
 
 class DriverForm(UserCreationForm):
@@ -44,16 +41,20 @@ class DriverForm(UserCreationForm):
         if DriverLicenseUpdateForm.validate_license_number(license_number):
             return license_number
         else:
-            raise ValidationError(
-                "This license is wrong"
-            )
+            raise ValidationError("This license is wrong")
 
 
 class CarForm(forms.ModelForm):
-    drivers = forms.ModelMultipleChoiceField(queryset=get_user_model().objects.all(),
-                                             widget=forms.CheckboxSelectMultiple,
-                                             required=False)
+    drivers = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
 
     class Meta:
         model = Car
-        fields = ("model", "manufacturer", "drivers",)
+        fields = (
+            "model",
+            "manufacturer",
+            "drivers",
+        )

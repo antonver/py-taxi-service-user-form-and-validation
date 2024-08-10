@@ -72,7 +72,6 @@ class CarDetailView(LoginRequiredMixin, generic.DetailView):
         return redirect(reverse("taxi:car-detail", kwargs={"pk": car.id}))
 
 
-
 class CarCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("taxi:car-list")
     form_class = CarForm
