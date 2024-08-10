@@ -20,15 +20,13 @@ class DriverLicenseUpdateForm(forms.ModelForm):
             and (license_number[:3].isupper() and license_number[3:].isdigit())
         ):
             return True
-        else:
-            return False
+        return False
 
     def clean_license_number(self):
         license_number = self.cleaned_data["license_number"]
         if self.validate_license_number(license_number):
             return license_number
-        else:
-            raise ValidationError("This license is wrong")
+        raise ValidationError("This license is wrong")
 
 
 class DriverForm(UserCreationForm):
